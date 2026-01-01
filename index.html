@@ -1,0 +1,101 @@
+<!DOCTYPE html
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LevelsUpOnLevels</title>
+  <style>
+    * {margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif;}
+    body {background-color: #0d0d0d; color: #f0f0f0; overflow-x: hidden;}
+    a {text-decoration: none; color: inherit;}
+    header {
+      display: flex; flex-direction: column; justify-content: center; align-items: center;
+      height: 100vh; text-align: center;
+      background: linear-gradient(135deg, #ff6ec4, #7873f5, #00d4ff);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
+      color: #fff;
+    }
+    @keyframes gradientBG {
+      0% {background-position: 0% 50%;}
+      50% {background-position: 100% 50%;}
+      100% {background-position: 0% 50%;}
+    }
+    header h1 {font-size: 3rem; margin-bottom: 15px;}
+    header p {font-size: 1.2rem; margin-bottom: 25px;}
+    .btn {padding: 12px 25px; background: #fff; color: #0d0d0d; border-radius: 25px; font-weight: bold; transition: 0.3s;}
+    .btn:hover {background: #ff6ec4; color: #fff; transform: scale(1.05);}
+    section {padding: 80px 20px; max-width: 1000px; margin: auto;}
+    section h2 {font-size: 2rem; margin-bottom: 40px; text-align: center; color: #ff6ec4;}
+    #quoteBox {text-align: center; font-size: 1.3rem; font-style: italic; margin: 0 auto; max-width: 600px; color: #fff; transition: opacity 0.8s ease-in-out;}
+    .lessons .lesson {margin-bottom: 25px; padding: 20px; background: #1a1a1a; border-left: 5px solid #ff6ec4; border-radius: 8px; opacity: 0; transform: translateY(50px); transition: 0.8s ease;}
+    .lessons .lesson.visible {opacity: 1; transform: translateY(0);}
+    .socials {text-align: center; margin-top: 40px;}
+    .socials a {display: inline-block; margin: 0 10px; padding: 10px 20px; background: #1a1a1a; color: #ff6ec4; border-radius: 25px; transition: 0.3s;}
+    .socials a:hover {background: #ff6ec4; color: #fff; transform: scale(1.1);}
+    .subscribe {text-align: center;}
+    .subscribe input {padding: 10px; width: 250px; border-radius: 25px; border: none; margin-right: 10px;}
+    .subscribe button {padding: 10px 20px; border-radius: 25px; border: none; background: #ff6ec4; color: #fff; cursor: pointer; transition: 0.3s;}
+    .subscribe button:hover {transform: scale(1.05); background: #7873f5;}
+    footer {text-align: center; padding: 20px; border-top: 1px solid #333; color: #888;}
+    @media(max-width: 768px){header h1 {font-size: 2.5rem;} header p {font-size: 1rem;} .subscribe input {width: 180px; margin-bottom: 10px;}}
+  </style>
+</head>
+<body>
+  <header>
+    <h1>LevelsUpOnLevels</h1>
+    <p>Daily motivation, lessons, and growth — level up every day.</p>
+    <a href="#daily" class="btn">Get Inspired Today</a>
+  </header>
+  <section id="daily">
+    <h2>Daily Motivation</h2>
+    <div id="quoteBox">Loading daily boost...</div>
+  </section>
+  <section id="lessons" class="lessons">
+    <h2>Growth Lessons</h2>
+    <div class="lesson"><h3>Mindset Shift</h3><p>Focus on progress, not perfection. Every small step is a level up.</p></div>
+    <div class="lesson"><h3>Consistency Over Intensity</h3><p>It’s better to do a little every day than a lot once in a while.</p></div>
+    <div class="lesson"><h3>Embrace Failure</h3><p>Failure is feedback — learn, adjust, and rise stronger.</p></div>
+    <div class="lesson"><h3>Energy Management</h3><p>Protect your energy. You can’t pour from an empty cup.</p></div>
+  </section>
+  <section class="socials">
+    <h2>Share the Energy</h2>
+    <a href="#" title="Share on Instagram">Instagram</a>
+    <a href="#" title="Share on TikTok">TikTok</a>
+    <a href="#" title="Share on YouTube">YouTube</a>
+  </section>
+  <section id="subscribe" class="subscribe">
+    <h2>Get Your Daily Boost</h2>
+    <input type="email" placeholder="Enter your email" />
+    <button>Subscribe</button>
+  </section>
+  <footer>&copy; 2026 LevelsUpOnLevels. All rights reserved.</footer>
+  <script>
+    const quotes = [
+      "Success is the sum of small efforts repeated daily.",
+      "Your only limit is you. Push past it today.",
+      "Level up. Not for anyone else — for yourself.",
+      "The grind is temporary. The growth is forever.",
+      "Discipline is doing what needs to be done even when you don’t feel like it.",
+      "Stay consistent. The results will come."
+    ];
+    let i = 0;
+    const quoteBox = document.getElementById('quoteBox');
+    function showNextQuote() {
+      quoteBox.style.opacity = 0;
+      setTimeout(() => {
+        quoteBox.textContent = quotes[i];
+        quoteBox.style.opacity = 1;
+        i = (i + 1) % quotes.length;
+      }, 800);
+    }
+    showNextQuote();
+    setInterval(showNextQuote, 5000);
+    const lessons = document.querySelectorAll('.lesson');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+    }, {threshold: 0.2});
+    lessons.forEach(lesson => observer.observe(lesson));
+  </script>
+</body>
+</html>
